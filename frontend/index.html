@@ -572,6 +572,11 @@ let CHARTS = {};
 let ALL_CUSTS = [];
 let ALL_PRODS = [];
 let BACKEND = 'http://localhost:5050';
+if (window.location.origin && window.location.origin.startsWith('http')) {
+  if (window.location.port !== '3000') {
+    BACKEND = window.location.origin;
+  }
+}
 
 const COLORS = ['#2563eb','#7c3aed','#10b981','#f59e0b','#ef4444','#06b6d4','#ec4899','#84cc16','#a855f7','#14b8a6'];
 

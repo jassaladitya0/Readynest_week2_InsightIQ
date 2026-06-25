@@ -781,6 +781,11 @@ def clean_dataframe(df, cols):
 # ──────────────────────────────────────────────
 #  ROUTES
 # ──────────────────────────────────────────────
+@app.route('/')
+def index():
+    frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'frontend'))
+    return send_file(os.path.join(frontend_dir, 'index.html'))
+
 @app.route('/health')
 def health():
     return jsonify({'status':'running'})

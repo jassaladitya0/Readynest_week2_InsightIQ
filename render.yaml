@@ -1,24 +1,10 @@
 services:
-  # Backend Python Flask Web Service
+  # Python Flask Web Service (serves both frontend and backend API)
   - type: web
-    name: insightiq-backend
+    name: insightiq-project
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn --chdir backend app:app
     envVars:
       - key: PORT
         value: 5050
-
-  # Frontend Static Site
-  - type: static
-    name: insightiq-frontend
-    env: static
-    # The buildCommand replaces the hardcoded local BACKEND URL with the deployed Render backend URL.
-    buildCommand: sed -i "s|let BACKEND = 'http://localhost:5050';|let BACKEND = '$BACKEND_URL';|g" frontend/index.html
-    publishPath: frontend
-    envVars:
-      - key: BACKEND_URL
-        fromService:
-          name: insightiq-backend
-          type: web
-          property: url
